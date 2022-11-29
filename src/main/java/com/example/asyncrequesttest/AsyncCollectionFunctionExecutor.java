@@ -24,15 +24,15 @@ public class AsyncCollectionFunctionExecutor<V> {
         return results;
     }
 
-    public <T, K> CompletableFuture<Collection<T>> collectAsyncFunctionResultsToList(Collection<K> params, Function<K, T> func) {
+    protected <T, K> CompletableFuture<Collection<T>> collectAsyncFunctionResultsToList(Collection<K> params, Function<K, T> func) {
         return collectAsyncFunctionResults(params, func, ArrayList::new);
     }
 
-    public <T, K> CompletableFuture<Collection<T>> collectAsyncFunctionResultsToSet(Collection<K> params, Function<K, T> func) {
+    protected <T, K> CompletableFuture<Collection<T>> collectAsyncFunctionResultsToSet(Collection<K> params, Function<K, T> func) {
         return collectAsyncFunctionResults(params, func, HashSet::new);
     }
 
-    public <T, K, C extends Collection<T>> CompletableFuture<C> collectAsyncFunctionResults(
+    protected <T, K, C extends Collection<T>> CompletableFuture<C> collectAsyncFunctionResults(
             Collection<K> params, Function<K, T> func, Supplier<C> supplier) {
         C results = params.stream().map(param -> {
                     if (exitFlag.get()) {
